@@ -11,7 +11,7 @@ class UsersProvider{
   String _url = Environment.API_DELIVERY;
   String _api = "/api/users";
 
-  Future init(BuildContext context){
+  Future? init(BuildContext context){
     this.context = context;
   }
 
