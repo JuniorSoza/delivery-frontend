@@ -1,40 +1,41 @@
 import 'dart:convert';
-
+//https://app.quicktype.io/
 ResponseApi responseApiFromJson(String str) => ResponseApi.fromJson(json.decode(str));
 
 String responseApiToJson(ResponseApi data) => json.encode(data.toJson());
 
 class ResponseApi {
 
-  String message;
-  String error;
-  bool success;
-  dynamic data;
+  String message = '';
+  String error = '';
+  bool success = false;
+  dynamic? data;
 
 
   ResponseApi({
-    this.message,
-    this.error,
-    this.success
+    this.success = false,
+    this.message = '',
+    this.error = '',
+    this.data
   });
 
 
-  ResponseApi.fromJson(Map<String, dynamic> json) {
-    message: json["message"];
-    error: json["error"];
-    success: json["success"];
+  factory ResponseApi.fromJson(Map<String, dynamic> json)=>ResponseApi(
+    success: json["success"],
+    message: json["message"],
+    error: json["error"],
+    data: json["data"],
+  );
 
-    try{
-      data = json['data'];
-    }catch(e){
-      print('exeption ${e}');
-    }
-
+  @override
+  String toString() {
+    return 'ResponseApi{message: $message, error: $error, success: $success, data: $data}';
   }
 
   Map<String, dynamic> toJson() => {
+    "success": success,
     "message": message,
     "error": error,
-    "success": success,
+    "data":data
   };
 }
